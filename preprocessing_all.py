@@ -6,12 +6,9 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Folder containing all CWA files
-#input_folder = r"C:\Users\johan\Desktop\stanford_cwa_clean\Controls"
-input_folder = r"C:\Users\johan\Desktop\stanford_cwa_clean\New"
-#output_folder = r"C:\Users\johan\Desktop\data_preprocessed\Controls"
-output_folder = r"C:\Users\johan\Desktop\data_preprocessed\New"
-#os.makedirs(output_folder, exist_ok=True)
+# Folder containing CWA files
+input_folder = r"C:\Users\johan\Desktop\stanford_cwa_clean\Controls"
+output_folder = r"C:\Users\johan\Desktop\data_preprocessed\Controls"
 
 # Nighttime window
 start_hour = 21
@@ -422,3 +419,4 @@ for fname in os.listdir(input_folder):
 
     plt.tight_layout()
     plt.show()
+
