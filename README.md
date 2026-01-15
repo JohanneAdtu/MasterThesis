@@ -1,14 +1,15 @@
 # MasterThesis
 Repository for the master thesis "Early Detection of Neurodegenerative Disease Using Wrist Accelerometers" made by Johanne Niman Abildgaard (Student ID: s185380).
 
-The repository contains the following .py files:
-- Actigraphy_preprocessing. This script preprocesses raw actigraphy data from .cwa files, including missing data handling, filtering, resampling, and calibrating the accelerometer signals, and saves nightly segments as HDF5 files.
-- Nonwear_heatmaps. This script analyzes per-night preprocessed accelerometer data and hypnogram data to detect non-wear periods, excludes poor-quality nights, and visualizes the data distribution as heatmaps before and after exclusion.
-- Hypnogram_validation. This script compares algorithm-predicted sleep stages with manual hypnogram scorings for nightly recordings, computes performance metrics, plots confusion matrices, and summarizes classification results for each night.
-- Heartrate_validation. This script compares ECG-derived and actigraphy-estimated heart rate (estimated by the Nightbeat method), segmenting by sleep stage using predicted hypnograms, and produces visual and quantitative performance comparisons for each night.
-- Sleep_structure_feature_extraction. This script extracts sleep structure features from predicted per-night hypnograms, merges them with actigraphy data to ensure overlap and quality, and saves the per-night features in a summary table as CSV.
-- Heartrate_feature_extraction. This script extracts heart rate features, and includes the Nightbeat heart rate estimation method. Features are extracted from preprocessed actigraphy data and hypnogram data, and saved per night and for each sleep segment in a summary table as CSV.
-- Activity_feature_extraction.
-- Frequency_feature_extraction.
-- Feature_distribution.
-- Machine_learning.
+The repository contains the following files:
+- Actigraphy_preprocessing.py: This script preprocesses raw actigraphy data from .cwa files, including missing data handling, filtering, resampling, and calibration, and saves nightly segments as HDF5 files.
+- Nonwear_heatmaps.py: This script analyzes preprocessed accelerometer data and hypnogram data for non-wear detection, excludes poor-quality nights, and visualizes data distribution as heatmaps before and after exclusion.
+- Hypnogram_validation.py: This script compares algorithm-predicted sleep stages with manual hypnogram scoring, computes performance metrics, plots confusion matrices, and produces per-night summary tables.
+- Heartrate_estimation_for_validation.py: This script estimates heart rate from preprocessed accelerometer data using the Nightbeat method, visualizes the estimation process, and saves results for further validation.
+- Heartrate_validation.py: This script compares ECG-derived and Nightbeat-estimated heart rate, segmented by sleep stage, and generates visual and quantitative performance comparisons for each night.
+- Sleep_structure_feature_extraction.py: This script extracts sleep structure features from predicted nightly hypnograms and produces per-night CSV summaries.
+- Heartrate_feature_extraction.py: This script extracts heart rate features and includes the Nightbeat method for estimating heart rate. Features are extracted from preprocessed accelerometer data and hypnogram data, and are saved per night and per sleep segment as CSV summaries.
+- Activity_feature_extraction.py: This script extracts activity features from sleep epochs across sleep stages. Features are extracted from preprocessed accelerometer data and hypnogram data, and are saved per night and per sleep segment as CSV summaries.
+- Frequency_feature_extraction.py: This script extracts frequency-domain features using Welch's PSD. Features are extracted from preprocessed accelerometer data and hypnogram data, and are saved per night and per sleep segment as CSV summaries.
+- Feature_distribution.py: This script loads extracted feature CSVs and visualizes feature distributions between groups and sleep segments using split violin plots with subject-level means and effect size annotations.
+- Machine_learning.py: This script builds and evaluates machine learning classifiers to distinguish iRBD from controls using night-level sleep features, with leave-one-participant-out cross-validation, diagnostic metrics, and permutation-based feature importance.
