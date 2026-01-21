@@ -177,7 +177,7 @@ def compute_sleep_structure_features(hyp_df, epoch_sec=30):
 
     def episode_lengths(indices):
         if len(indices) == 0:
-            return np.nan, np.nan, np.nan, 0
+            return np.nan, np.nan, 0
         split_pts = np.where(np.diff(indices) != 1)[0] + 1
         bouts = np.split(indices, split_pts)
         lengths = [len(b) for b in bouts if len(b) > 0]
@@ -215,10 +215,10 @@ def compute_sleep_structure_features(hyp_df, epoch_sec=30):
 
 #%% Main code
 
-data_folder = r"C:\Users\johan\Desktop\data_preprocessed\iRBD"
-#data_folder = r"C:\Users\johan\Desktop\data_preprocessed\Controls"
-hypnogram_folder = r"C:\Users\johan\Desktop\data_hypnograms\iRBD"
-#hypnogram_folder = r"C:\Users\johan\Desktop\data_hypnograms\Controls"
+#data_folder = r"C:\Users\johan\Desktop\data_preprocessed\iRBD"
+data_folder = r"C:\Users\johan\Desktop\data_preprocessed\Controls"
+#hypnogram_folder = r"C:\Users\johan\Desktop\data_hypnograms\iRBD"
+hypnogram_folder = r"C:\Users\johan\Desktop\data_hypnograms\Controls"
 summary_folder = r"C:\Users\johan\Desktop\ML_features_sleep_stages"
 os.makedirs(summary_folder, exist_ok=True)
 epoch_sec = 30  # hypnogram epoch duration
@@ -335,7 +335,7 @@ for person_prefix in person_prefixes:
         awakenings_idx = np.where((stages[1:] == 3) & (np.isin(stages[:-1], [0,1,2])))[0] + 1
         awakenings_times = times[awakenings_idx]
         
-        # Plotting
+        # Plotting (optional)
         fig, (ax_acc, ax_hyp, ax_nremrem) = plt.subplots(3, 1, figsize=(11, 10), sharex=True, height_ratios=[1,1,1])
         # 1. Accelerometry
         ax_acc.plot(night_df.index, night_df['x'], label='x', alpha=0.7)
@@ -400,10 +400,8 @@ for person_prefix in person_prefixes:
             f"REM bouts: \n"
             f"  Number: {feats['REM_NumBouts']:.0f}\n"
             f"  Mean: {feats['REM_MeanBout_minutes']:.1f} min\n"
-            f"  Max: {feats['REM_MaxBout_minutes']:.1f} min"
-        )
+            f"  Max: {feats['REM_MaxBout_minutes']:.1f} min"        )
         ax_nremrem.text( 0.98, 0.97, box_text, ha='right', va='top', transform=ax_nremrem.transAxes, fontsize=12, bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.85)  )
-
         plt.xlabel("Time")
         plt.tight_layout()
         plt.show()
@@ -411,7 +409,7 @@ for person_prefix in person_prefixes:
         
 # Output summary features for all valid nights
 df = pd.DataFrame(feature_rows)
-csv_path = os.path.join(summary_folder, "iRBD_sleep_structure.csv")
-#csv_path = os.path.join(summary_folder, "Controls_sleep_structure.csv")
+#csv_path = os.path.join(summary_folder, "iRBD_sleep_structure.csv")
+csv_path = os.path.join(summary_folder, "Controls_sleep_structure.csv")
 df.to_csv(csv_path, index=False)
 print(f"Saved {csv_path} with {len(df)} rows.")
